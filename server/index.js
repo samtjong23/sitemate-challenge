@@ -1,9 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 const PORT = 5000;
 
+// CORS options to allow client to communicate with server
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type'
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 let issues = {};
