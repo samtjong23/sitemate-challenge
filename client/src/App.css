@@ -1,0 +1,75 @@
+.app-container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding: 1rem;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.table {
+  min-width: 100%;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+}
+
+.table-header {
+  background-color: #e5e7eb;
+}
+
+.table-cell, .table-header-cell {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.table-header-cell {
+  font-weight: bold;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.button-edit {
+  background-color: #3b82f6;
+  margin-right: 0.5rem;
+}
+
+.button-edit:hover {
+  background-color: #2563eb;
+}
+
+.button-delete {
+  background-color: #ef4444;
+}
+
+.button-delete:hover {
+  background-color: #dc2626;
+}
+
+.button-add {
+  background-color: #10b981;
+}
+
+.button-add:hover {
+  background-color: #059669;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+}
