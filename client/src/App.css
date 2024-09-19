@@ -51,11 +51,13 @@
   background-color: #2563eb;
 }
 
-.button-delete {
+.button-delete,
+.button-cancel {
   background-color: #ef4444;
 }
 
-.button-delete:hover {
+.button-delete:hover,
+.button-cancel:hover {
   background-color: #dc2626;
 }
 
@@ -64,6 +66,15 @@
 }
 
 .button-add:hover {
+  background-color: #059669;
+}
+
+.button-save {
+  background-color: #10b981;
+  margin-right: 0.5rem;
+}
+
+.button-save:hover {
   background-color: #059669;
 }
 

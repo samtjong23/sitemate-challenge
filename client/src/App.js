@@ -5,6 +5,8 @@ import './App.css';
 function App() {
     const [issues, setIssues] = useState([]);
     const [newIssue, setNewIssue] = useState({ title: '', description: '' });
+    const [editMode, setEditMode] = useState(null);
+    const [editFields, setEditFields] = useState({ title: '', description: '' });
 
     useEffect(() => {
         fetchIssues();
@@ -22,11 +24,19 @@ function App() {
         setNewIssue({ title: '', description: '' });
     };
 
-    const updateIssue = async (id) => {
-        const updatedTitle = prompt('Enter new title:', '');
-        const updatedDescription = prompt('Enter new description:', '');
-        const response = await axios.put(`http://localhost:5000/issues/${id}`, { id, title: updatedTitle, description: updatedDescription });
+    const startEditing = (issue) => {
+        setEditMode(issue.id);
+        setEditFields({ title: issue.title, description: issue.description });
+    };
+
+    const saveIssue = async (id) => {
+        const response = await axios.put(`http://localhost:5000/issues/${id}`, { id, ...editFields });
         setIssues(issues.map(issue => issue.id === id ? response.data : issue));
+        setEditMode(null);
+    };
+
+    const cancelEdit = () => {
+        setEditMode(null);
     };
 
     const deleteIssue = async (id) => {
@@ -51,21 +61,62 @@ function App() {
                         {issues.map(issue => (
                             <tr key={issue.id}>
                                 <td className="table-cell">{issue.id}</td>
-                                <td className="table-cell">{issue.title}</td>
-                                <td className="table-cell">{issue.description}</td>
                                 <td className="table-cell">
-                                    <button 
-                                        onClick={() => updateIssue(issue.id)} 
-                                        className="button button-edit"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button 
-                                        onClick={() => deleteIssue(issue.id)} 
-                                        className="button button-delete"
-                                    >
-                                        Delete
-                                    </button>
+                                    {editMode === issue.id ? (
+                                        <input
+                                            type="text"
+                                            value={editFields.title}
+                                            onChange={(e) => setEditFields({ ...editFields, title: e.target.value })}
+                                            className="input-field"
+                                        />
+                                    ) : (
+                                        issue.title
+                                    )}
+                                </td>
+                                <td className="table-cell">
+                                    {editMode === issue.id ? (
+                                        <input
+                                            type="text"
+                                            value={editFields.description}
+                                            onChange={(e) => setEditFields({ ...editFields, description: e.target.value })}
+                                            className="input-field"
+                                        />
+                                    ) : (
+                                        issue.description
+                                    )}
+                                </td>
+                                <td className="table-cell">
+                                    {editMode === issue.id ? (
+                                        <>
+                                            <button 
+                                                onClick={() => saveIssue(issue.id)} 
+                                                className="button button-save"
+                                            >
+                                                Save
+                                            </button>
+                                            <button 
+                                                onClick={cancelEdit} 
+                                                className="button button-cancel"
+                                            >
+                                                Cancel
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button 
+                                                onClick={() => startEditing(issue)} 
+                                                className="button button-edit"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button 
+                                                onClick={() => deleteIssue(issue.id)} 
+                                                className="button button-delete"
+                                            >
+                                                Delete
+                                            </button>
+                                        </>
+                                    )}
                                 </td>
                             </tr>
                         ))}
