@@ -25,7 +25,8 @@
   background-color: #e5e7eb;
 }
 
-.table-cell, .table-header-cell {
+.table-cell,
+.table-header-cell {
   padding: 0.5rem 1rem;
   border: 1px solid #e5e7eb;
   text-align: center;
