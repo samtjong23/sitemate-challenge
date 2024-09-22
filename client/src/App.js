@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Alert from "./Alert";
 import "./App.css";
 
 const SERVER_URL = "http://localhost:5000/issues";
+const ALERT_MESSAGE = "Both title and description are required.";
 
 function App() {
   const [issues, setIssues] = useState([]);
   const [newIssue, setNewIssue] = useState({ title: "", description: "" });
   const [editMode, setEditMode] = useState(null);
   const [editFields, setEditFields] = useState({ title: "", description: "" });
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     fetchIssues();
   }, []);
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
 
   const fetchIssues = async () => {
     const response = await axios.get(SERVER_URL);
@@ -20,6 +32,11 @@ function App() {
   };
 
   const createIssue = async () => {
+    if (!newIssue.title || !newIssue.description) {
+      setShowAlert(true);
+      return;
+    }
+
     const id = Date.now(); // Use timestamp as a unique ID
     const response = await axios.post(SERVER_URL, {
       id,
@@ -35,6 +52,11 @@ function App() {
   };
 
   const saveIssue = async (id) => {
+    if (!editFields.title || !editFields.description) {
+      setShowAlert(true);
+      return;
+    }
+
     const response = await axios.put(`${SERVER_URL}/${id}`, {
       id,
       ...editFields,
@@ -54,6 +76,7 @@ function App() {
 
   return (
     <div className="app-container">
+      {showAlert && <Alert message={ALERT_MESSAGE} />}
       <h1 className="header-title">Issue Tracker</h1>
       <div className="table-container">
         <table className="table">
