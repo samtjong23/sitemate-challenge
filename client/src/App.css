@@ -16,9 +16,10 @@
 }
 
 .table {
-  min-width: 100%;
+  width: 100%;
   background-color: #fff;
   border: 1px solid #e5e7eb;
+  table-layout: fixed;
 }
 
 .table-header {
@@ -30,6 +31,8 @@
   padding: 0.5rem 1rem;
   border: 1px solid #e5e7eb;
   text-align: center;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .table-header-cell {
@@ -84,4 +87,20 @@
   padding: 0.5rem;
   border: 1px solid #e5e7eb;
   border-radius: 0.25rem;
+}
+
+.id-column {
+  width: 15%;
+}
+
+.title-column {
+  width: 15%;
+}
+
+.description-column {
+  width: 55%;
+}
+
+.action-column {
+  width: 15%;
 }

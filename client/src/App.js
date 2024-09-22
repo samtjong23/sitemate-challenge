@@ -82,17 +82,19 @@ function App() {
         <table className="table">
           <thead>
             <tr className="table-header">
-              <th className="table-header-cell">ID</th>
-              <th className="table-header-cell">Title</th>
-              <th className="table-header-cell">Description</th>
-              <th className="table-header-cell">Actions</th>
+              <th className="table-header-cell id-column">ID</th>
+              <th className="table-header-cell title-column">Title</th>
+              <th className="table-header-cell description-column">
+                Description
+              </th>
+              <th className="table-header-cell action-column">Actions</th>
             </tr>
           </thead>
           <tbody>
             {issues.map((issue) => (
               <tr key={issue.id}>
-                <td className="table-cell">{issue.id}</td>
-                <td className="table-cell">
+                <td className="table-cell id-column">{issue.id}</td>
+                <td className="table-cell title-column">
                   {editMode === issue.id ? (
                     <input
                       type="text"
@@ -106,7 +108,7 @@ function App() {
                     issue.title
                   )}
                 </td>
-                <td className="table-cell">
+                <td className="table-cell description-column">
                   {editMode === issue.id ? (
                     <input
                       type="text"
@@ -123,7 +125,7 @@ function App() {
                     issue.description
                   )}
                 </td>
-                <td className="table-cell">
+                <td className="table-cell action-column">
                   {editMode === issue.id ? (
                     <>
                       <button
@@ -159,8 +161,8 @@ function App() {
               </tr>
             ))}
             <tr>
-              <td className="table-cell">New</td>
-              <td className="table-cell">
+              <td className="table-cell id-column">New</td>
+              <td className="table-cell title-column">
                 <input
                   type="text"
                   value={newIssue.title}
@@ -171,7 +173,7 @@ function App() {
                   className="input-field"
                 />
               </td>
-              <td className="table-cell">
+              <td className="table-cell description-column">
                 <input
                   type="text"
                   value={newIssue.description}
@@ -182,7 +184,7 @@ function App() {
                   className="input-field"
                 />
               </td>
-              <td className="table-cell">
+              <td className="table-cell action-column">
                 <button onClick={createIssue} className="button button-add">
                   Add
                 </button>
